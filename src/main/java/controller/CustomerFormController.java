@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Transaction;
 import repo.CustomerRepo;
 import tm.Customertm;
 
@@ -78,5 +79,19 @@ public class  CustomerFormController {
     }
 
     public void update_OnAction(ActionEvent actionEvent) {
+        CustomerRepo customerRepo=new CustomerRepo();
+        Customer  customer = customerRepo.getCustomer(txtId.getText());
+        customer.setAddress(txtAddress.getText());
+        customer.setName(txtName.getText());
+        customer.setTel(Integer.parseInt(txtTel.getText()));
+        customer.setId(txtId.getText());
+        boolean isUpdated = customerRepo.updateCustomer(customer);
+        if (isUpdated) {
+            // System.out.println("Customer Updated!");
+            new Alert(Alert.AlertType.CONFIRMATION,"IS UPDATED").show();
+        } else {
+            //System.out.println("Customer Update Failed!");
+            new Alert(Alert.AlertType.ERROR,"CAN'T UPDATED").show();
+        }
     }
 }
