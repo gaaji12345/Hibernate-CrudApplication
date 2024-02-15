@@ -76,6 +76,15 @@ public class  CustomerFormController {
     }
 
     public void deleteOnAction(ActionEvent actionEvent) {
+        CustomerRepo customerRepo=new CustomerRepo();
+        Customer  customer = customerRepo.getCustomer(txtId.getText());
+        boolean isDeleted = customerRepo.deleteCustomer(customer);
+        if (isDeleted) {
+            System.out.println("Customer Deleted!");
+        } else {
+            System.out.println("Customer Deletion Failed!");
+        }
+
     }
 
     public void update_OnAction(ActionEvent actionEvent) {
