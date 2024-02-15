@@ -65,5 +65,20 @@ public class CustomerRepo {
         }
 
     }
+    public boolean deleteCustomer(Customer customer){
+        Transaction transaction = session.beginTransaction();
+        try{
+            session.delete(customer);
+            transaction.commit();
+            session.close();
+            return true;
+
+        }catch (Exception e){
+            transaction.rollback();
+            session.close();
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
