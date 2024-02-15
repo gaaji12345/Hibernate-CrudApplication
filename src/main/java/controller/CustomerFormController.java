@@ -62,6 +62,18 @@ public class  CustomerFormController {
     }
 
     public void txtSearchOn_Action(ActionEvent actionEvent) {
+        try {
+            CustomerRepo customerRepo=new CustomerRepo();
+           Customer customer=customerRepo.search(txtId.getText());
+            customer.setAddress(txtAddress.getText());
+            customer.setName(txtName.getText());
+            customer.setTel(Integer.parseInt(txtTel.getText()));
+            customer.setId(txtId.getText());
+
+        }catch (Exception e){
+            new Alert(Alert.AlertType.WARNING,"Customer ID not Found").show();
+
+        }
 
 
     }
@@ -80,9 +92,11 @@ public class  CustomerFormController {
         Customer  customer = customerRepo.getCustomer(txtId.getText());
         boolean isDeleted = customerRepo.deleteCustomer(customer);
         if (isDeleted) {
-            System.out.println("Customer Deleted!");
+           // System.out.println("Customer Deleted!");
+            new Alert(Alert.AlertType.CONFIRMATION,"DELETE SUCCESFULL..!").show();
         } else {
-            System.out.println("Customer Deletion Failed!");
+           // System.out.println("Customer Deletion Failed!");
+            new Alert(Alert.AlertType.ERROR,"CAN'T DELETE..!").show();
         }
 
     }

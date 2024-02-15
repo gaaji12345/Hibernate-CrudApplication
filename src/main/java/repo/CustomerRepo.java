@@ -53,6 +53,7 @@ public class CustomerRepo {
 
     }
     public boolean updateCustomer(Customer customer){
+        session = SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.update(customer);
@@ -79,6 +80,20 @@ public class CustomerRepo {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Customer search(String id) {
+        session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+       // StudentEntity student = session.get(StudentEntity.class, id);
+          Customer customer=session.get(Customer.class,id);
+
+
+        transaction.commit();
+        session.close();
+
+        return customer;
     }
 
 }
