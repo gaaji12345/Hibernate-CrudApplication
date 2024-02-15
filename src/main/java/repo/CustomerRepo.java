@@ -52,5 +52,18 @@ public class CustomerRepo {
 
 
     }
+    public boolean updateCustomer(Customer customer){
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(customer);
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            session.close();
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 
 }
